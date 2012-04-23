@@ -10,8 +10,8 @@
  * 		Re-worked how the data is read, now completely event based
  * 		Poteiometer (analog) reading is scaled between 0 and 1.0
  * 		Still need some work to get things going at the start (reset board required, sometimes twice)
- * 		
- * 
+ *  April 19		
+ * 		RFID reading works
  * 
  * 
  * 
@@ -70,13 +70,7 @@ package
 		
 		private var currentRFID:String = ""; 
 		public var lastRFID:String = ""; 
-		
-		
-		//These are just here for debugging purposes.
-		public var scale:Number = 1.0;
-		public var A0:Number = 1.0;
-		public var A1:Number = 1.0;
-		
+				
 		private var _dispatcher:ArduinoEventDispatcher;		
 		
 		public function ArduinoViewer()
@@ -92,7 +86,7 @@ package
 			
 			
 			status = new TextField();
-			status.text = "waiting... Press button to begin.";
+			status.text = "waiting... Press reset button if this message doesn't change.";
 			status.y = 20;
 			status.height = 200;
 			status.width = 180;
@@ -102,11 +96,9 @@ package
 			
 			status.setTextFormat(format);
 			
-			
 			status.background = true;
 			status.backgroundColor = 0xCCCCCC;
 				
-			
 			addChild(createButton());
 			addChild(status);
 		}
@@ -161,7 +153,7 @@ package
 			arduino.setPinMode(RFID_RX, Arduino.INPUT);
 			arduino.setPinMode(RFID_TX, Arduino.OUTPUT);
 			arduino.setPinMode(RFID_RESET_PIN, Arduino.OUTPUT);
-			writeRFIDReset(Arduino.HIGH);
+			writeRFIDResetPin(Arduino.HIGH);
 
 
 			
@@ -220,16 +212,9 @@ package
 			var value:Number = event.value;
 			
 			analogPins[pin] = value/1023.0;
-
-			//trace("Analog Pin: " + pin + " val: " + value);
-			if (pin == 2) {
-				scale =  scale * 0.9 + analogPins[pin] * 0.1;
-				(parent as Main).mapper.updateTouchContainers();
-			}
 			
 			_dispatcher.dispatchAnalogEvent(pin, analogPins[pin]);
 
-			
 			frameHandler(event);
 		}
 		
@@ -243,7 +228,7 @@ package
 						lastRFID = currentRFID; 
 					}
 
-					writeRFIDReset(Arduino.LOW);
+					writeRFIDResetPin(Arduino.LOW);
 					var myTime:Timer = new Timer(RFID_RESET_TIME, 1);
 					myTime.addEventListener(TimerEvent.TIMER, function():void {
 						if (rfid_continous_timer != null && rfid_continous_timer.running) {
@@ -257,7 +242,7 @@ package
 						}
 							
 						rfid_continous_timer.start();
-						writeRFIDReset(Arduino.HIGH); 
+						writeRFIDResetPin(Arduino.HIGH); 
 					});
 					myTime.start();
 					
@@ -288,10 +273,8 @@ package
 				
 				initArduino();
 				
-				//possible endless loop here. writeButton is called from initArduino... 
-			
+				//possible endless loop here. writeButton is called from initArduino... 			
 			}
-			
 		}
 		
 		private function createButton():Sprite {
@@ -315,8 +298,7 @@ package
 			updateButton();		
 		}
 		
-		private function toggleHandler(event:Event):void {
-			
+		private function toggleHandler(event:Event):void {	
 			toggleButton();
 
 			trace("Button: " + buttonLabel.text);			
@@ -365,8 +347,8 @@ package
 			status += analogPinState();
 			return status;
 		}
-		
-		private function writeRFIDReset(mode:int=Arduino.HIGH):void {
+
+		private function writeRFIDResetPin(mode:int=Arduino.HIGH):void {
 			try {
 				arduino.writeDigitalPin(RFID_RESET_PIN, mode);
 			} catch (e:Error) {
@@ -389,13 +371,11 @@ package
 			status.appendText( "last RFID: " + lastRFID + "\n" );
 			
 			
-			if (lastRFID.length>=6) {
-				status.backgroundColor = uint("0x"+lastRFID.substr(lastRFID.length-7));
-				
+			if (currentRFID.length>=6) {
+				status.backgroundColor = uint("0x"+lastRFID.substr(lastRFID.length-7));	
+			} else {
+				status.backgroundColor = 0xCCCCCC;
 			}
-
-			
-			//trace(status.text);			
 		}
 		
 		private function numberFormat(number:*, maxDecimals:int = 2, forceDecimals:Boolean = false, siStyle:Boolean = false):String {
@@ -403,17 +383,14 @@ package
 			var i:int = 0;
 			var inc:Number = Math.pow(10, maxDecimals);
 			var str:String = String(Math.round(inc * Number(number))/inc);
-			    	var hasSep:Boolean = str.indexOf(".") == -1, sep:int = hasSep ? str.length : str.indexOf(".");
-			    	var ret:String = (hasSep && !forceDecimals ? "" : (siStyle ? "," : ".")) + str.substr(sep+1);
-			    	if (forceDecimals) {
-				for (var j:int = 0; j <= maxDecimals - (str.length - (hasSep ? sep-1 : sep)); j++) ret += "0";
-			}
-			    	while (i + 3 < (str.substr(0, 1) == "-" ? sep-1 : sep)) ret = (siStyle ? "." : ",") + str.substr(sep - (i += 3), 3) + ret;
-			    	return str.substr(0, sep - i) + ret;
+		    	var hasSep:Boolean = str.indexOf(".") == -1, sep:int = hasSep ? str.length : str.indexOf(".");
+		    	var ret:String = (hasSep && !forceDecimals ? "" : (siStyle ? "," : ".")) + str.substr(sep+1);
+		    	if (forceDecimals) {
+					for (var j:int = 0; j <= maxDecimals - (str.length - (hasSep ? sep-1 : sep)); j++) ret += "0";
+				}
+		    	while (i + 3 < (str.substr(0, 1) == "-" ? sep-1 : sep)) ret = (siStyle ? "." : ",") + str.substr(sep - (i += 3), 3) + ret;
+		    	return str.substr(0, sep - i) + ret;
 		}
 		
-		
-		
-	}
-	
+	}	
 }

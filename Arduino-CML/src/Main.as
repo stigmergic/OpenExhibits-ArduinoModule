@@ -39,8 +39,7 @@ package
 			mapper.x = 200;
 			addChild(mapper);
 			
-			addListenerForAllEvents( function(event:Event):void { trace(event); } );
-			
+			addListenerForAllEvents( function(event:Event):void { trace(event); } );	
 		}
 		
 		public function get mapper():ArduinoToCMLMapper
@@ -81,9 +80,6 @@ package
 			return result;
 		}	
 	}
-	
-	
-	
 	
 }
 

@@ -21,10 +21,7 @@ package {
 		private var panel:Sprite;
 
 		private var _viewer:ArduinoViewer;
-		
-		
-		
-		
+				
 		public function ArduinoToCMLMapper(viewer:ArduinoViewer) {
 			_viewer = viewer;
 			
@@ -96,33 +93,6 @@ package {
 			panel.visible = buttonState;
 			if (buttonState) {
 			}
-			
-			updateTouchContainers();
-		}
-		
-		public function updateTouchContainers():void {
-			var textField:TextField = TextField(panel.getChildAt(0));
-			textField.text = "This: " + this.parent + "\n";
-			
-			//textField.appendText("aspens: " + CMLObjectList.instance.getId("aspens") + "\n");
-
-			for  (var i:Number=0; i < CMLObjectList.instance.length; i++) {
-				var result:Object = CMLObjectList.instance.getIndex(i);
-				//var className:String = flash.utils.getQualifiedClassName( result );
-				//var objectClass:Class = flash.utils.getDefinitionByName( className ) as Class;
-				
-				var tc:TouchContainer = result as TouchContainer;
-				if (tc) {
-					textField.appendText("id: " + tc.id + "\n");
-					if (tc.id == 'aspens') {
-						//tc.scale = (parent as Main).viewer.scale;
-						//tc.visible = ((parent as Main).viewer.lastRFID === "4C0020A9B1"); 
-					} else {
-						tc.alpha = (parent as Main).viewer.scale;
-					}
-				}
-			}
-			
 		}
 		
 		private function toggleHandler(event:Event):void {
