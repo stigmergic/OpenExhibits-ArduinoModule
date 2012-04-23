@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GestureWorksApplication version="1.0.0" key="pJePwOPjkqbn4ZKdk5mXraWsrJmrj7m4x5SVqaSlkpenoKQ=" gml="library/gml/my_gestures.gml" css="library/css/my_styles.css" xmlns:cml="http://gestureworks.com/cml/version/1.0">
+  <TouchContainer id="aspens" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false" scale="0.75" x="0" y="0">
+    <ImageElement id="logo" src="library/assets/aspens.jpg" />
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
+  <TouchContainer id="tc1" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false"  x="-100" y="0" alpha="0.5">
+    <ImageElement id="logo" src="library/assets/logo.png"/>
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
+  <TouchContainer id="tc2" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false" scale="2"  x="0" y="0">
+    <ImageElement id="logo" src="library/assets/logo.png"/>
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
+  <TouchContainer id="tc3" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false" scale=".2"  x="0" y="0">
+    <ImageElement id="logo" src="library/assets/logo.png"/>
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
+  <TouchContainer id="tc4" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false" scale=".5"  x="0" y="0">
+    <ImageElement id="logo" src="library/assets/logo.png"/>
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
+  <DebugKit displayOn="true" displayAlwaysOn="false" displayRadius="300">
+    <DebugLayer type="point_shapes" displayOn="true"/>
+    <DebugLayer type="cluster_circle" displayOn="true"/>
+    <DebugLayer type="cluster_box" displayOn="true"/>
+    <DebugLayer type="cluster_center" displayOn="true"/>
+    <DebugLayer type="cluster_web" displayOn="true"/>
+    <DebugLayer type="cluster_rotation" displayOn="true"/>
+    <DebugLayer type="cluster_orientation" displayOn="true"/>
+  </DebugKit>
+</GestureWorksApplication>

@@ -39,8 +39,6 @@ package
 			mapper.x = 200;
 			addChild(mapper);
 			
-			trace("aspens: " + CMLObjectList.instance.getId("aspens"));
-			trace("events.");
 			addListenerForAllEvents( function(event:Event):void { trace(event); } );
 			
 		}
