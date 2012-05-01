@@ -5,10 +5,11 @@ package
 
 	public class MapperUI extends Sprite
 	{
-		private var _mapper:Mapper = null;
+		private var _mapper:Mapper;
 		private var _viewer:ArduinoViewer;
 	
 		private var type:String;
+		
 		private var arduinoId:TextField;
 		private var cmlId:TextField;
 		private var property:TextField;
@@ -22,6 +23,19 @@ package
 		public function MapperUI(viewer:ArduinoViewer)
 		{
 			_viewer = viewer;
+			
+			type = "digital";
+			arduinoId = new TextField();
+			cmlId = new TextField();
+			property = new TextField();
+			inverse = new TextField();
+			inMin = new TextField();
+			inMax = new TextField();
+			outMin = new TextField();
+			outMax = new TextField();
+			
+			
+			
 		}
 		
 		

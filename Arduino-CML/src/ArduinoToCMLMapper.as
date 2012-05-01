@@ -20,12 +20,14 @@ package {
 		
 		private var panel:Sprite;
 
+		private var mappers:Array;
+		
 		private var _viewer:ArduinoViewer;
 				
 		public function ArduinoToCMLMapper(viewer:ArduinoViewer) {
 			_viewer = viewer;
 			
-			var mappers:Array = [ 
+			mappers = [ 
 				new DigitalMapper(2, 'tc1', 'visible', true),
 				new DigitalMapper(2, 'tc2', 'visible', false),
 				new AnalogMapper(2, 'tc3', 'x', 0, 1, 0, 750),
@@ -52,7 +54,6 @@ package {
 			panel.visible = true;
 			
 			var box:TextField = new TextField();
-			box.text = "TESTING\nTESTING\n";
 			box.autoSize = "left";
 			box.border = false;
 			box.multiline = true;
@@ -86,12 +87,18 @@ package {
 		}
 		
 		private function updateButton():void {
-			buttonLabel.text = buttonState ? "YES" : "NO";
+			buttonLabel.text = "Maps";
 			buttonLabel.textColor = 0xFFFFFF;
 			buttonLabel.backgroundColor = buttonState ? 0x00CC00 : 0xCC0000;
 			
 			panel.visible = buttonState;
+			
 			if (buttonState) {
+				var box:TextField = panel.getChildAt(0) as TextField;
+				box.text = "";
+				for each (var mapper:Mapper in mappers) {
+					box.appendText(mapper.toString() + "\n");
+				}
 			}
 		}
 		

@@ -7,5 +7,10 @@ package
 		function register(_viewer:ArduinoViewer):void;
 		
 		function unregister():void;
+		
+		function toString():String;
+		
+		//function displayComplete():void;
+
 	}
 }

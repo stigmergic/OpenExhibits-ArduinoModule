@@ -49,4 +49,7 @@
     <DebugLayer type="cluster_rotation" displayOn="true"/>
     <DebugLayer type="cluster_orientation" displayOn="true"/>
   </DebugKit>
+  
+  
+  
 </GestureWorksApplication>

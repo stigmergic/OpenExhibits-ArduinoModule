@@ -54,11 +54,17 @@ package
 		private const firstDigitalPin:Number = 2;
 		private const lastDigitalPin:Number = 49;
 		
-		private const RFID_RX:Number = 50;
-		private const RFID_TX:Number = 51;
-		private const RFID_RESET_PIN:Number = 52;
-		private const RFID_RESET_TIME:Number = 200;
-		private const RFID_CONTINOUS_TIMEOUT:Number = 500;
+		public var HOST:String = "127.0.0.1";
+		public var PORT:Number = 5331;
+		
+		//public var COM:String = "cu.usbmodem411";
+		//public var BAUD:Number = 115200;
+		
+		public var RFID_RX:Number = 50;
+		public var RFID_TX:Number = 51;
+		public var RFID_RESET_PIN:Number = 52;
+		public var RFID_RESET_TIME:Number = 200;
+		public var RFID_CONTINOUS_TIMEOUT:Number = 500;
 		
 		private var rfid_continous_timer:Timer;
 
@@ -103,6 +109,11 @@ package
 			addChild(status);
 		}
 
+		public function displayComplete():void {
+			//entry point after CML parser has finished
+			
+		}
+		
 		public function get dispatcher():ArduinoEventDispatcher
 		{
 			return _dispatcher;
@@ -116,7 +127,8 @@ package
 		protected function initArduino():void {
 			trace("starting connection...");
 			try {
-				arduino = new Arduino("127.0.0.1",5331);
+				arduino = new Arduino(HOST,PORT);
+				//arduino = new Arduino(COM,BAUD);
 
 				arduino.addEventListener(Event.CONNECT,onSocketConnect);
 				arduino.addEventListener(Event.CLOSE,onSocketClose);
@@ -150,11 +162,11 @@ package
 				analogPins[i] = 0;
 			}
 
+			//RFID softwareserial pins
 			arduino.setPinMode(RFID_RX, Arduino.INPUT);
 			arduino.setPinMode(RFID_TX, Arduino.OUTPUT);
 			arduino.setPinMode(RFID_RESET_PIN, Arduino.OUTPUT);
 			writeRFIDResetPin(Arduino.HIGH);
-
 
 			
 			arduino.addEventListener(ArduinoEvent.ANALOG_DATA, analogHandler);
@@ -348,7 +360,7 @@ package
 			return status;
 		}
 
-		private function writeRFIDResetPin(mode:int=Arduino.HIGH):void {
+		private function writeRFIDResetPin(mode:int):void {
 			try {
 				arduino.writeDigitalPin(RFID_RESET_PIN, mode);
 			} catch (e:Error) {
@@ -365,7 +377,6 @@ package
 												
 			status.text = "";
 			status.appendText( "Firmware: " + arduino.getFirmwareVersion() + "\n");
-			status.appendText( "connected: " + arduino.connected + "\n" );
 			status.appendText(  pinState() + "\n" );
 			status.appendText( "current RFID: " + currentRFID + "\n" );
 			status.appendText( "last RFID: " + lastRFID + "\n" );

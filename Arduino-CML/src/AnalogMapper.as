@@ -27,19 +27,15 @@ package
 		}
 		 
 				
-		public function fire(pin:Object, value:Number):void {
+		public function fire(pin:Object, value:Number):void {		
+			var obj:* = CMLObjectList.instance.getId(cmlID);
 			
-			try {
-				var obj:TouchContainer = CMLObjectList.instance.getId(cmlID) as TouchContainer;
-				
-				var newValue:Number = value;
-				if (Math.abs(this.inMax-this.inMin) < 0.00001) newValue=value;
-				else newValue=(value - this.inMin)*(this.outMax-this.outMin)/(this.inMax-this.inMin) + this.outMin;
-				//trace("value: " + value + " newValue: " + newValue);
-				
+			var newValue:Number = value;
+			if (Math.abs(this.inMax-this.inMin) < 0.00001) newValue=value;
+			else newValue=(value - this.inMin)*(this.outMax-this.outMin)/(this.inMax-this.inMin) + this.outMin;
+			
+			if (obj && obj.hasOwnProperty(property)) {
 				obj[property] = newValue;
-			} catch (e:Error) {
-				trace(e);
 			}
 		}
 		
@@ -53,6 +49,10 @@ package
 			if (this._viewer != null) {
 				this._viewer.dispatcher.removeAnalogEventListener(pin, fire);
 			}
+		}
+		
+		public function toString():String {
+			return "Analog pin: " + pin + " min: " + inMin + " max: " + inMax + " CML ID: " +  cmlID + " property: " + property + " min: " + outMin + " max: " + outMax; 	
 		}
 		
 	}

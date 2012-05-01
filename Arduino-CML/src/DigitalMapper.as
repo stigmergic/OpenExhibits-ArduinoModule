@@ -21,11 +21,9 @@ package
 		}
 				
 		public function fire(pin:Object, value:Number):void {
-			try {
-				var obj:TouchContainer = CMLObjectList.instance.getId(cmlID) as TouchContainer;
+			var obj:* = CMLObjectList.instance.getId(cmlID);
+			if (obj && obj.hasOwnProperty(property)) {
 				obj[property] = inverse ? !value : value;
-			} catch (e:Error) {
-				trace(e);
 			}
 		}
 		
@@ -40,6 +38,11 @@ package
 				this._viewer.dispatcher.removeDigitalEventListener(pin, fire);
 			}
 		}
+		
+		public function toString():String {
+			return "Digital Pin: " + pin + " CML ID: " +  cmlID + " property: " + property + " inverse: " + inverse; 	
+		}
+
 		
 	}
 }
