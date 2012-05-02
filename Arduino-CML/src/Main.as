@@ -36,7 +36,7 @@ package
 			addChild(viewer);
 			
 			mapper = new ArduinoToCMLMapper(viewer);
-			mapper.x = 200;
+			mapper.x = 175;
 			addChild(mapper);
 			
 			addListenerForAllEvents( function(event:Event):void { trace(event); } );	

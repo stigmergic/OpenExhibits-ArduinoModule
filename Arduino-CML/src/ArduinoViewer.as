@@ -92,7 +92,7 @@ package
 			
 			
 			status = new TextField();
-			status.text = "waiting... Press reset button if this message doesn't change.";
+			status.text = "waiting...\n   Press reset button if this message doesn't change.";
 			status.y = 20;
 			status.height = 200;
 			status.width = 180;

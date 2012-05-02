@@ -4,12 +4,15 @@ package {
 	import com.gestureworks.cml.element.TouchContainer;
 	import com.gestureworks.cml.utils.LinkedMap;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	
+	import spark.components.Label;
 	
 	
 	public class ArduinoToCMLMapper extends Sprite
@@ -98,6 +101,16 @@ package {
 				box.text = "";
 				for each (var mapper:Mapper in mappers) {
 					box.appendText(mapper.toString() + "\n");
+				}
+
+			
+				var mapperui:MapperUI = new MapperUI(_viewer);
+				panel.addChild(mapperui);
+								
+				var predIndex:int = mapperui.parent.getChildIndex(mapperui) - 1;
+				if (predIndex >= 0) {
+					var pred:DisplayObject = mapperui.parent.getChildAt(predIndex);
+					mapperui.y = pred.y + pred.height + 2;
 				}
 			}
 		}
