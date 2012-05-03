@@ -161,4 +161,4 @@ PWR --- switch --- lead to digital pin --- 10Kohm resistor --- GND
 
 #wiring a potentiometer
 http://arduino.cc/en/Tutorial/AnalogReadSerial
-Potentiometers are easy to wire. I use a 10Kohm pot and it works well.
+Potentiometers are easy to wire. I use a 10Kohm pot and it works well.  Pots have three connectors.  Usually the two outside connectors go to ground and power and the middle goes to an analog pin on the arduino.  Whci wire is connected to ground and vice versa will select whether the reading is low clockwise or counter clockwise.
