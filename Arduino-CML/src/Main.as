@@ -32,13 +32,16 @@ package
 			
 			_globalListeners = new Dictionary();
 			
+			//Arduino viewer communicates with arduino and allows for listeners to register
 			viewer = new ArduinoViewer();
 			addChild(viewer);
 			
+			//Tracks mapper objects that turns arduino events into changes in CML object property
 			mapper = new ArduinoToCMLMapper(viewer);
 			mapper.x = 175;
 			addChild(mapper);
 			
+			//debug listen for all events
 			addListenerForAllEvents( function(event:Event):void { trace(event); } );	
 		}
 		

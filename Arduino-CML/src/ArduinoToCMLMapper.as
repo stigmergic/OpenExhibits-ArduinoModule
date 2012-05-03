@@ -16,14 +16,12 @@ package {
 	import spark.components.Label;
 	
 	
-	public class ArduinoToCMLMapper extends Sprite
-	{
+	public class ArduinoToCMLMapper extends Sprite {
 		private var button:Sprite;
 		private var buttonLabel:TextField;
-		private var buttonState:Boolean;
+		private var _buttonState:Boolean;
 
-		private var addButton:TextField;
-		
+		private var addButton:TextField;		
 		private var panel:Sprite;
 
 		private var mappers:Array;
@@ -32,7 +30,6 @@ package {
 				
 		public function ArduinoToCMLMapper(viewer:ArduinoViewer) {
 			_viewer = viewer;
-			
 						
 			initButton();
 			initPanel();
@@ -45,6 +42,7 @@ package {
 		}
 
 		private function initMappers():void {
+			//initial set of mappers.  This can be removed to start from a blank slate
 			mappers = [ 
 				new DigitalMapper(2, 'tc1', 'visible', true),
 				new DigitalMapper(2, 'tc2', 'visible', false),
@@ -58,7 +56,6 @@ package {
 				mapperUI.setToMapper(mapper);
 				addMapperUI(mapperUI);
 			}
-
 		}
 		
 		private function initPanel():void {
@@ -68,7 +65,7 @@ package {
 		}
 		
 		private function initButton(buttonState:Boolean=false):void {
-			this.buttonState = buttonState;
+			this._buttonState = buttonState;
 			button = new Sprite();
 			
 			buttonLabel = new TextField();
@@ -87,7 +84,7 @@ package {
 			addButton = new TextField();
 			addButton.text=" + ";
 			addButton.background=true;
-			addButton.backgroundColor=0x00D000;
+			addButton.backgroundColor=_buttonState? 0x00CC00 : 0xCC0000;
 			addButton.textColor=0xFFFFFF;
 			addButton.height = 20;
 			addButton.width = 20;
@@ -96,14 +93,13 @@ package {
 			addButton.x = buttonLabel.width;
 			addButton.y = buttonLabel.y;
 			addButton.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {
-				addMapperUI(new MapperUI(_viewer));
-				if (!buttonState) {
-					buttonState = !buttonState;
+				if (!_buttonState) {
+					_buttonState = !_buttonState;
+					updateButton();
+				} else {
+					addMapperUI(new MapperUI(_viewer));
 				}
-				updateButton();
-			});
-			
-			
+			});	
 		}
 		
 		private function addMapperUI(mapperui:MapperUI):void {
@@ -120,15 +116,15 @@ package {
 		private function updateButton():void {
 			buttonLabel.text = "Maps";
 			buttonLabel.textColor = 0xFFFFFF;
-			buttonLabel.backgroundColor = buttonState ? 0x00CC00 : 0xCC0000;
+			buttonLabel.backgroundColor = _buttonState ? 0x00CC00 : 0xCC0000;
+			addButton.backgroundColor=_buttonState? 0x00CC00 : 0xCC0000;
 			
-			panel.visible = buttonState;
+			panel.visible = _buttonState;
 		}
 		
 		private function toggleHandler(event:Event):void {
-			buttonState = !buttonState;
+			_buttonState = !_buttonState;
 			updateButton();
 		}
-
 	}
 }

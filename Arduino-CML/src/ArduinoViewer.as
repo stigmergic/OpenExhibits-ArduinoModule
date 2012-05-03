@@ -1,25 +1,13 @@
 /** 
+ * Uses the as3glue library (http://code.google.com/p/as3glue/)
+ * makes connection with tinkerproxy or other serial to socket library
+ * communicates with Firmata,  In this case a modified Firmata called
+ * Firmata_RFID that sends RFID events as sysex messages.
  * 
- *  April 13
- * 		Made the button creation/update/write/toggle into individual methods
- * 		Background color change on the button
- * 		Exception handling when lost connection with arduino -- Could be problem if arduino just loses power...
- * 		Reading the digital pin.  Unable to read analog so far. 
- *  April 16
- * 		Analog input is working
- * 		Re-worked how the data is read, now completely event based
- * 		Poteiometer (analog) reading is scaled between 0 and 1.0
- * 		Still need some work to get things going at the start (reset board required, sometimes twice)
- *  April 19		
- * 		RFID reading works
+ * Software interested in Analog, Digital, or RFID events can register a 
+ * listener with the dispatcher object.
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * This object also provides a view of the current state of the arduino
  * 
  */
 
@@ -51,8 +39,8 @@ package
 		
 		private var ledState:Boolean = false;
 		
-		public const firstDigitalPin:Number = 2;
-		public const lastDigitalPin:Number = 49;
+		public var firstDigitalPin:Number = 2;
+		public var lastDigitalPin:Number = 49;
 		
 		public var HOST:String = "127.0.0.1";
 		public var PORT:Number = 5331;
@@ -68,8 +56,8 @@ package
 		
 		private var rfid_continous_timer:Timer;
 
-		public const firstAnalogPin:Number = 0;
-		public const lastAnalogPin:Number = 15;//15;
+		public var firstAnalogPin:Number = 0;
+		public var lastAnalogPin:Number = 15;//15;
 		
 		public var digitalPins:Array = new Array(lastDigitalPin+1);
 		public var analogPins:Array = new Array(lastAnalogPin+1);
@@ -83,14 +71,16 @@ package
 		{
 			_dispatcher = new ArduinoEventDispatcher();
 			
-			_dispatcher.addDigitalEventListener(-1, function(pin:Number, value:Number):void { trace("Digital event for pin: " + pin + " value: " + value); });
-			_dispatcher.addAnalogEventListener(-1, function(pin:Number, value:Number):void { /*trace("Analog event for pin: " + pin + " value: " + value); */ });
-			_dispatcher.addRFIDEventListener("", function(rfid:String, value:Number):void { trace("RFID event for rfid: " + rfid + " value: " + value); });
+			// Debug trace of events, uncomment to see if you are getting events...
+			//_dispatcher.addDigitalEventListener(-1, function(pin:Number, value:Number):void { trace("Digital event for pin: " + pin + " value: " + value);  });
+			//_dispatcher.addAnalogEventListener(-1, function(pin:Number, value:Number):void { trace("Analog event for pin: " + pin + " value: " + value);  });
+			//_dispatcher.addRFIDEventListener("", function(rfid:String, value:Number):void { trace("RFID event for rfid: " + rfid + " value: " + value); });
 			
 			
-			initArduino();
+			// get arduino going
+			initArduino();			
 			
-			
+			// setup a message in the dropdown
 			status = new TextField();
 			status.text = "waiting...\n   Press reset button if this message doesn't change.";
 			status.y = 20;
@@ -137,6 +127,7 @@ package
 				arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, firmwareHandler);
 				arduino.addEventListener(ArduinoSysExEvent.SYSEX_MESSAGE, sysexHandler);
 			
+				//pin 13 is used to debug arduino, it is connected to an LED and should be on when the menu is active
 				writeButton();
 			} catch (e:Error) {
 				trace("Error: " + e);
@@ -150,7 +141,6 @@ package
 			arduino.resetBoard();
 			
 			arduino.enableDigitalPinReporting();
-			
 			
 			var i:Number;
 			for (i = firstDigitalPin; i<=lastDigitalPin; i++) {
@@ -167,9 +157,9 @@ package
 			//RFID softwareserial pins
 			arduino.setPinMode(RFID_RX, Arduino.INPUT);
 			arduino.setPinMode(RFID_TX, Arduino.OUTPUT);
+			//Reset PIN allows for card presence detection
 			arduino.setPinMode(RFID_RESET_PIN, Arduino.OUTPUT);
 			writeRFIDResetPin(Arduino.HIGH);
-
 			
 			arduino.addEventListener(ArduinoEvent.ANALOG_DATA, analogHandler);
 			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, digitalHandler);
@@ -212,10 +202,7 @@ package
 			var value:Number = event.value;
 
 			digitalPins[pin] = value;
-
 			_dispatcher.dispatchDigitalEvent(pin, value);
-			
-			//trace("Digital Pin: " + pin + " val: " + value);
 			
 			frameHandler(event);
 		}
@@ -226,7 +213,6 @@ package
 			var value:Number = event.value;
 			
 			analogPins[pin] = value/1023.0;
-			
 			_dispatcher.dispatchAnalogEvent(pin, analogPins[pin]);
 
 			frameHandler(event);
@@ -374,6 +360,7 @@ package
 		}
 		
 		private function frameHandler(event:Event):void {
+			//update view based on current state
 			writeButton();
 			updateButton();
 												
@@ -392,6 +379,7 @@ package
 		}
 		
 		private function numberFormat(number:*, maxDecimals:int = 2, forceDecimals:Boolean = false, siStyle:Boolean = false):String {
+			//Number formatter helper function
 			//This method from: http://snipplr.com/view.php?codeview&id=27081
 			var i:int = 0;
 			var inc:Number = Math.pow(10, maxDecimals);
