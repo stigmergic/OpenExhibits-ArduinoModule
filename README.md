@@ -2,7 +2,8 @@ OpenExhibits-ArduinoModule
 ==========================
 
 # Setup
-This module was written using Adobe's Flash Builder 4.6.  It depends on the OpenExhibits SDK and the as3glue library from http://code.google.com/p/as3glue/.
+This module was written using Adobe's Flash Builder 4.6.  
+It depends on the OpenExhibits SDK http://openexhibits.org/downloads/sdk/  and the as3glue library from http://code.google.com/p/as3glue/.
 
 Included in this project is the "Firmata_RFID" project, necessary for communicating RFID reading from a Innovations ID-12 or ID-20 chip. This must be placed on the arduino in order for the module to be able to communicate with the arduino.
 
@@ -49,7 +50,10 @@ net_port4=5334
 
 ```
 
-Once this is running the module can be added to a OpenExhibits project as in this Main.as.  The main thinkg to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.  The main thinkg to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.
+Once this is running the module can be added to a OpenExhibits project as in this Main.as.  The main thing to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.  
+
+I developed this project on the Arduino Mega.  Other Arduino boards will have different numbers of pins.  You can select which pins are made active by editing the ArduinoViewer.as file directly or setting the variables and calling arduino.initArduino().  This will select which pins are read, it is likely a performance boost to only activate the analog pins that you will actually be using.  However by default I have activated all pins for my board. 
+
 ```
 package 
 {
