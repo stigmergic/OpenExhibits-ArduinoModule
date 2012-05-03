@@ -140,18 +140,18 @@ package
 ```
 
 #Wiring up the Innovations ID12 RFID chip
-The RFID chip has pins numbered from 1 to 11 as follows:
-1 GND -- connect to GND
-2 RST -- connect to 5V to operate, GND to reset
-3 ANT
-4 ANT
-5 CP
-6 NC
-7 FS -- Format select, 5V for wiegand, GND for ASCII (which is what the module uses).  Note in order to actually set the format the 11 pin must be set to GND
-8 D1
-9 D0 -- TTL data line, outputs serial message for the RFID that is read
-10 BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read
-11 5V -- Power source 5Volts
+##The RFID chip has pins numbered from 1 to 11 as follows:
+1. GND -- connect to GND
+2. RST -- connect to 5V to operate, GND to reset
+3. ANT
+4. ANT
+5. CP
+6. NC
+7. FS -- Format select, 5V for wiegand, GND for ASCII (which is what the module uses).  Note in order to actually set the format the 11 pin must be set to GND
+8. D1
+9. D0 -- TTL data line, outputs serial message for the RFID that is read
+10. BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read
+11. 5V -- Power source 5Volts
 
 #wiring a switch
 http://arduino.cc/en/Tutorial/Button
