@@ -142,15 +142,15 @@ package
 #Wiring up the Innovations ID12 RFID chip
 ##The RFID chip has pins numbered from 1 to 11 as follows:
 1. GND -- connect to GND
-2. RST -- connect to 5V to operate, GND to reset
+2. RST -- connect to 5V to operate, GND to reset, using the Firmata_RFID connect this to digital pin 52 and the app will automatically power cycle after each read in order to detect presence of the card.
 3. ANT
 4. ANT
 5. CP
 6. NC
-7. FS -- Format select, 5V for wiegand, GND for ASCII (which is what the module uses).  Note in order to actually set the format the 11 pin must be set to GND
+7. FS -- Format select, 5V for wiegand, GND for ASCII (which is what the module uses).  Note in order to actually set the format the 11 pin must be set to GND. I always keep this connected to GND.
 8. D1
-9. D0 -- TTL data line, outputs serial message for the RFID that is read
-10. BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read
+9. D0 -- TTL data line, outputs serial message for the RFID that is read.  In the initial setup this should be connected to digital pin 50.  Other arduinos will differ in the number of pins available.  The pin that is selected for this must support interrupts in order for  the SoftwareSerial library to work. See here for more: http://arduino.cc/hu/Reference/SoftwareSerial
+10. BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read.
 11. 5V -- Power source 5Volts
 
 #wiring a switch
