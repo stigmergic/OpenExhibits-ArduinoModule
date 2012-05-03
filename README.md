@@ -49,7 +49,7 @@ net_port4=5334
 
 ```
 
-Once this is running the module can be added to a OpenExhibits project as in this Main.as:
+Once this is running the module can be added to a OpenExhibits project as in this Main.as.  The main thinkg to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.  The main thinkg to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.
 ```
 package 
 {
@@ -139,3 +139,26 @@ package
 }
 ```
 
+#Wiring up the Innovations ID12 RFID chip
+The RFID chip has pins numbered from 1 to 11 as follows:
+1 GND -- connect to GND
+2 RST -- connect to 5V to operate, GND to reset
+3 ANT
+4 ANT
+5 CP
+6 NC
+7 FS -- Format select, 5V for wiegand, GND for ASCII (which is what the module uses).  Note in order to actually set the format the 11 pin must be set to GND
+8 D1
+9 D0 -- TTL data line, outputs serial message for the RFID that is read
+10 BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read
+11 5V -- Power source 5Volts
+
+#wiring a switch
+http://arduino.cc/en/Tutorial/Button
+Digital switches require a pull down resistor so that they do not float when the switch is turned off.  I used a 10Kohm resistor connected to the reading side of the switch like so:
+
+PWR --- switch --- lead to digital pin --- 10Kohm resistor --- GND
+
+#wiring a potentiometer
+http://arduino.cc/en/Tutorial/AnalogReadSerial
+Potentiometers are easy to wire. I use a 10Kohm pot and it works well.
