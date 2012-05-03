@@ -8,6 +8,14 @@
       <Gesture ref="n-scale" gestureOn="true"/>
     </GestureList>
   </TouchContainer>
+  <TouchContainer id="rfid" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false" scale="0.5" x="0" y="0">
+    <ImageElement id="logo" src="library/assets/RFID.jpg" />
+    <GestureList>
+      <Gesture ref="n-drag" gestureOn="true"/>
+      <Gesture ref="n-rotate" gestureOn="true"/>
+      <Gesture ref="n-scale" gestureOn="true"/>
+    </GestureList>
+  </TouchContainer>
   <TouchContainer id="tc1" mouseChildren="false" disableNativeTransform="false" disableAffineTransform="false"  x="-100" y="0" alpha="0.5">
     <ImageElement id="logo" src="library/assets/logo.png"/>
     <GestureList>

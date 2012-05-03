@@ -48,7 +48,8 @@ package {
 				new DigitalMapper(2, 'tc2', 'visible', false),
 				new AnalogMapper(2, 'tc3', 'x', 0, 1, 0, 750),
 				new AnalogMapper(2, 'tc4', 'y', 0, 1, 750, 0),
-				new RFIDMapper("", 'aspens', 'visible', true)
+				new RFIDMapper("", 'aspens', 'visible', true),
+				new DigitalMapper(2, 'rfid', 'visible', false)
 			];
 			
 			for each (var mapper:Mapper in mappers) {
