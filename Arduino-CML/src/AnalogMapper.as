@@ -5,13 +5,13 @@ package
 	
 	public class AnalogMapper implements Mapper
 	{
-		private var pin:Number;
-		private var cmlID:String;
-		private var property:String;
-		private var inMin:Number;
-		private var inMax:Number;
-		private var outMin:Number;
-		private var outMax:Number;
+		public var pin:Number;
+		public var cmlID:String;
+		public var property:String;
+		public var inMin:Number;
+		public var inMax:Number;
+		public var outMin:Number;
+		public var outMax:Number;
 		
 		private var _viewer:ArduinoViewer;
 		
@@ -43,6 +43,8 @@ package
 		{			
 			this._viewer = _viewer;
 			this._viewer.dispatcher.addAnalogEventListener(pin, fire);
+			
+			if (pin>=0) fire(pin, _viewer.analogPins[pin]);
 		}
 		
 		public function unregister():void {

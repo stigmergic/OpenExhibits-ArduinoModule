@@ -5,10 +5,10 @@ package
 
 	public class RFIDMapper implements Mapper
 	{
-		private var rfid:String;
-		private var cmlID:String;
-		private var property:String;
-		private var inverse:Boolean;
+		public var rfid:String;
+		public var cmlID:String;
+		public var property:String;
+		public var inverse:Boolean;
 		
 		private var _viewer:ArduinoViewer;
 		
@@ -31,11 +31,13 @@ package
 		{
 			this._viewer = _viewer;
 			this._viewer.dispatcher.addRFIDEventListener(rfid, fire);
+			
+			if (rfid != "") fire(rfid, _viewer.currentRFID == rfid ? 1 : 0);
 		}
 		
 		public function unregister():void {
 			if (this._viewer != null) {
-				this._viewer.dispatcher.addRFIDEventListener(rfid, fire);
+				this._viewer.dispatcher.removeRFIDEventListener(rfid, fire);
 			}
 		}
 		

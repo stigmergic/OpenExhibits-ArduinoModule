@@ -5,10 +5,10 @@ package
 
 	public class DigitalMapper implements Mapper
 	{
-		private var pin:Number;
-		private var cmlID:String;
-		private var property:String;
-		private var inverse:Boolean;
+		public var pin:Number;
+		public var cmlID:String;
+		public var property:String;
+		public var inverse:Boolean;
 		
 		private var _viewer:ArduinoViewer;
 		
@@ -31,6 +31,8 @@ package
 		{
 			this._viewer = _viewer;
 			this._viewer.dispatcher.addDigitalEventListener(pin, fire);
+			
+			fire(pin, _viewer.digitalPins[pin]);
 		}
 		
 		public function unregister():void {

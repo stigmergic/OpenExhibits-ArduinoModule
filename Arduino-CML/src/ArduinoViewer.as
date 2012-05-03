@@ -51,8 +51,8 @@ package
 		
 		private var ledState:Boolean = false;
 		
-		private const firstDigitalPin:Number = 2;
-		private const lastDigitalPin:Number = 49;
+		public const firstDigitalPin:Number = 2;
+		public const lastDigitalPin:Number = 49;
 		
 		public var HOST:String = "127.0.0.1";
 		public var PORT:Number = 5331;
@@ -68,13 +68,13 @@ package
 		
 		private var rfid_continous_timer:Timer;
 
-		private const firstAnalogPin:Number = 0;
-		private const lastAnalogPin:Number = 15;//15;
+		public const firstAnalogPin:Number = 0;
+		public const lastAnalogPin:Number = 15;//15;
 		
-		private var digitalPins:Array = new Array(lastDigitalPin+1);
-		private var analogPins:Array = new Array(lastAnalogPin+1);
+		public var digitalPins:Array = new Array(lastDigitalPin+1);
+		public var analogPins:Array = new Array(lastAnalogPin+1);
 		
-		private var currentRFID:String = ""; 
+		public var currentRFID:String = ""; 
 		public var lastRFID:String = ""; 
 				
 		private var _dispatcher:ArduinoEventDispatcher;		
@@ -97,6 +97,8 @@ package
 			status.height = 200;
 			status.width = 180;
 			status.autoSize = "left";
+			status.selectable = true;
+
 			
 			var format:TextFormat = new TextFormat("fixed-width");
 			
