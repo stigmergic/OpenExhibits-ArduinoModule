@@ -98,8 +98,6 @@ package
             mapper.x = 175;
             addChild(mapper);
 
-            //debug listen for all events
-            addListenerForAllEvents( function(event:Event):void { trace(event); } );    
         }
 
         public function get mapper():ArduinoToCMLMapper
@@ -122,23 +120,6 @@ package
             _viewer = value;
         }
 
-        public function addListenerForAllEvents( listener : Function ) : void{
-            _globalListeners[ listener ] = listener;
-        }
-
-        public function removeListenerForAllEvents( listener : Function ) : void{
-            delete _globalListeners[ listener ];
-        }
-
-        override public function dispatchEvent(event:Event):Boolean{
-            var result:Boolean = super.dispatchEvent( event );
-
-            for each( var listener : Function in _globalListeners ){
-                listener( event );
-            }
-
-            return result;
-        }   
     }
 }
 ```
@@ -156,6 +137,8 @@ package
 9. D0 -- TTL data line, outputs serial message for the RFID that is read.  In the initial setup this should be connected to digital pin 50.  Other arduinos will differ in the number of pins available.  The pin that is selected for this must support interrupts in order for  the SoftwareSerial library to work. See here for more: http://arduino.cc/hu/Reference/SoftwareSerial
 10. BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read.
 11. 5V -- Power source 5Volts
+
+I purchased the ID-20 from http://sparkfun.com along with a breakout board for the ID-12 (which is compatiable with ID-20).  I recommend this breakout as it made attaching wires very simple even for my limited soldering abilities.
 
 #wiring a switch
 http://arduino.cc/en/Tutorial/Button
