@@ -3,7 +3,7 @@ OpenExhibits-ArduinoModule
 
 # Setup
 This module was written using Adobe's Flash Builder 4.6.  
-It depends on the OpenExhibits SDK http://openexhibits.org/downloads/sdk/  and the as3glue library from http://code.google.com/p/as3glue/.
+It depends on the [OpenExhibits SDK](http://openexhibits.org/downloads/sdk/)  and the [as3glue](http://code.google.com/p/as3glue/) library.
 
 Included in this project is the "Firmata_RFID" project, necessary for communicating RFID reading from a Innovations ID-12 or ID-20 chip. This must be placed on the arduino in order for the module to be able to communicate with the arduino.
 
