@@ -131,7 +131,7 @@ package
 
 #Wiring up the Innovations ID12 RFID chip
 
-![Circuit Diagram](https://github.com/stigmergic/OpenExhibits-ArduinoModule/raw/master/circuits/OpenExhibits-Arduino-setup2_bb.jpg)
+<img src="https://github.com/stigmergic/OpenExhibits-ArduinoModule/raw/master/circuits/OpenExhibits-Arduino-setup2_bb.jpg" alt="Circuit Diagram"/>
 
 ##The RFID chip has pins numbered from 1 to 11 as follows:
 1. GND -- connect to GND
