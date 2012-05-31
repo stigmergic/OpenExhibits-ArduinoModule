@@ -146,7 +146,7 @@ package
 10. BZ -- High when an RFID is read, can be hooked up to an LED or buzzer to sound when a card is read.
 11. 5V -- Power source 5Volts
 
-I purchased the ID-20 from [sparkfun](http://sparkfun.com) along with a breakout board for the [ID-12](http://www.sparkfun.com/products/8419) (which is compatiable with ID-20).  I recommend this breakout <img src="https://github.com/stigmergic/OpenExhibits-ArduinoModule/raw/master/Arduino-CML/library/assets/RFID.jpg" alt="id-12 breakout board"/> as it made attaching wires very simple even for my limited soldering abilities.
+I purchased the ID-20 from [sparkfun](http://sparkfun.com) along with a breakout board for the [ID-12](http://www.sparkfun.com/products/8419) (which is compatiable with ID-20).  I recommend this breakout <img src="https://github.com/stigmergic/OpenExhibits-ArduinoModule/raw/master/Arduino-CML/library/assets/RFID.jpg" alt="id-12 breakout board" width=300/> as it made attaching wires very simple even for my limited soldering abilities.
 
 #wiring a switch
 http://arduino.cc/en/Tutorial/Button
