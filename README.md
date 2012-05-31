@@ -5,13 +5,15 @@ OpenExhibits-ArduinoModule
 This module was written using Adobe's Flash Builder 4.6.  
 It depends on the [OpenExhibits SDK](http://openexhibits.org/downloads/sdk/)  and the [as3glue](http://code.google.com/p/as3glue/) library.
 
-Included in this project is the "Firmata_RFID" project, necessary for communicating RFID reading from a Innovations ID-12 or ID-20 chip. This must be placed on the arduino in order for the module to be able to communicate with the arduino.  Use the arduino software to do this.  Also in the process of putting this on your arduino note the serial port that the arduino is connected to.  You will need this info later to setup TinkerProxy.
+Included in this project is the [Firmata_RFID](https://github.com/stigmergic/OpenExhibits-ArduinoModule/tree/master/Firmata_RFID) arduino sketch necessary for communicating the RFID readings from an Innovations ID-12 or ID-20 chip. This must be flashed onto the arduino in order for the module to be able to communicate with the as3Glue library.  
 
-Communication happens over a serial to socket bridge.  Included in this module is the [TinkerProxy](http://code.google.com/p/tinkerit/wiki/TinkerProxy) software.
+Communication happens over a serial to socket bridge.  Included in this module is the [TinkerProxy](http://code.google.com/p/tinkerit/wiki/TinkerProxy) software to perform as this bridge.
 
-Setup consists of placing the firmware on the arduino, discovering the name of the serial port that it is using (both of these steps can be accomplished using the arduino software).  In my case the serial port was named "/dev/cu.usbmodem411".  Note this name can change based on which usb port on the computer the arduino is plugged into.
+Setup consists of placing the firmware on the arduino, discovering the name of the serial port that it is using (both of these steps can be accomplished using the Arduino software).  
 
-The config file for tinkerproxy needs to be updated with the serial port name here are my settings for reference, note you will be looking in the arduino software for the serial device that looks like /dev/cu.usbmodem411:
+In my case the serial port was named "/dev/cu.usbmodem411".  Note this name can change based on which usb port on the same computer the arduino is plugged into.
+
+The config file for tinkerproxy needs to be updated with the serial port name here are my settings for reference, note you will be looking in the Arduino software for the serial device that looks like "/dev/cu.usbmodem411":
 
 ``` bash
 # Config file for serproxy
