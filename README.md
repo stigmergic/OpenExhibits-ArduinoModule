@@ -130,6 +130,9 @@ package
 ```
 
 #Wiring up the Innovations ID12 RFID chip
+
+![Circuit Diagram](https://github.com/stigmergic/OpenExhibits-ArduinoModule/raw/master/circuits/OpenExhibits-Arduino-setup2_bb.jpg)
+
 ##The RFID chip has pins numbered from 1 to 11 as follows:
 1. GND -- connect to GND
 2. RST -- connect to 5V to operate, GND to reset, using the Firmata_RFID connect this to digital pin 52 and the app will automatically power cycle after each read in order to detect presence of the card.
