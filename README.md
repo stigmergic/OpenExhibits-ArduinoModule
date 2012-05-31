@@ -57,7 +57,7 @@ net_port4=5334
 Once this is running on the arduino and TinkerProxy is connecting to it, the module can be added to an OpenExhibits project as in this [Main.as](https://github.com/stigmergic/OpenExhibits-ArduinoModule/blob/master/Arduino-CML/src/Main.as).  
 The main thing to notice is the addition of the ArduinoViewer and ArduinoToCMLMapper objects.  These are responsible for the module and its Graphic interface.  
 
-I developed this project on the Arduino Mega 2560.  Other Arduino boards will have different numbers of pins.  You can select which pins are made active by editing the ArduinoViewer.as file directly or setting the variables and calling arduino.initArduino().  This will select which pins are read, it is likely a performance boost to only activate the analog pins that you will actually be using.  However by default I have activated all pins for my board. 
+I developed this project on the Arduino Mega 2560.  Other Arduino boards will have different numbers of pins.  You can select which pins are made active by editing the [ArduinoViewer.as](https://github.com/stigmergic/OpenExhibits-ArduinoModule/blob/master/Arduino-CML/src/ArduinoViewer.as) file directly or setting the variables from Main.as and calling arduino.initArduino().  This will select which pins are read, it is likely a performance boost to only activate the analog pins that you will actually be using.  However by default I have activated all pins for my board. 
 
 ``` as3
 package 
@@ -152,8 +152,11 @@ I purchased the ID-20 from http://sparkfun.com along with a breakout board for t
 http://arduino.cc/en/Tutorial/Button
 Digital switches require a pull down resistor so that they do not float when the switch is turned off.  I used a 10Kohm resistor connected to the reading side of the switch like so:
 
-PWR --- switch --- lead to digital pin --- 10Kohm resistor --- GND
+PWR --- 10 ohm resistor --- switch --- lead to digital pin --- 10Kohm resistor --- GND
+
+Note the 10Kohm resistor has the effect of pulling a line to GND over time, so it is called a "pull down" resistor.
+
 
 #wiring a potentiometer
 http://arduino.cc/en/Tutorial/AnalogReadSerial
-Potentiometers are easy to wire. I use a 10Kohm pot and it works well.  Pots have three connectors.  Usually the two outside connectors go to ground and power and the middle goes to an analog pin on the arduino.  Whci wire is connected to ground and vice versa will select whether the reading is low clockwise or counter clockwise.
+Potentiometers are easy to wire. I use a 10Kohm pot and it works well with the Arduino.  Potentiometers have three connectors.  Usually the two outside connectors go to ground and +5V and the middle goes to an analog pin on the arduino.  Which wire is connected to ground and vice versa will select whether the reading is low clockwise or counter clockwise on the potentiomter.
